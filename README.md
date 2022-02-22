@@ -1,4 +1,4 @@
-# clima1_oop2  ☁
+# clima1_oop2  ☁ Week2
 This project is taken from the course below.
 ![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
 
