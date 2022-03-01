@@ -1,9 +1,11 @@
+import 'dart:convert';
+import 'package:clima1_oop2/screens/location_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:clima1_oop2/services/location.dart';
-import 'package:http/http.dart';
+import 'package:clima1_oop2/services/networking.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-const apiKey =
-    'https://api.openweathermap.org/data/2.5/weather?lat=37.42342342342342&lon=122.08395287867832&appid=8137ace68448d41da44e9bf9fd681a85';
+const apiKey = '8137ace68448d41da44e9bf9fd681a85';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -13,38 +15,42 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  double? longitude;
+  double? latitude;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getLocation();
-    getData();
   }
 
   void getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
+    longitude = location.long;
+    latitude = location.lat;
+    NetworkHelper networkHelper = NetworkHelper(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+    var weatherData = await networkHelper.getData();
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen();
+    }));
+    print(weatherData.runtimeType);
     print(location.long);
     print(location.lat);
   }
 
-  void getData() async {
-    Response response = await get(Uri.parse(apiKey));
-    print(response.body);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            //Get the current location
-            getLocation();
-          },
-          child: const Text('Get Location'),
-        ),
-      ),
-    );
+    return Scaffold(body: Center(
+      child:
+          SpinKitFadingCircle(itemBuilder: (BuildContext context, int index) {
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: index.isEven ? Colors.red : Colors.green,
+          ),
+        );
+      }),
+    ));
   }
 }
