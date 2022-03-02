@@ -1,4 +1,6 @@
-# clima1_oop2  ☁ Week3 
+# clima1_oop2  ☁ Week4
+We will finish the CityScreen to finalize the app by using push and pop with Navigator and TextField to get user input if they like to get the weather for
+different cities.
 This project is taken from the course below.
 ![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
 
