@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clima1_oop2/utilities/constants.dart';
+import 'package:flutter/services.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({Key? key}) : super(key: key);
@@ -38,7 +39,9 @@ class _CityScreenState extends State<CityScreen> {
                 child: null,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,

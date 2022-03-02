@@ -6,7 +6,7 @@ class NetworkHelper {
 
   Future<String> getData() async {
     Response response = await get(Uri.parse(url));
-    print(response.statusCode);
+    print(response.body);
     return response.body;
   }
 }
